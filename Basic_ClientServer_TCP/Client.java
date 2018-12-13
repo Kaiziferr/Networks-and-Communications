@@ -8,6 +8,11 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * @Autor: Steven Bernal Tovar (Kaiziferr)
+ *         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 public class Client {
 
 	public static void main(String[] args) {
@@ -23,7 +28,6 @@ public class Client {
 			 */
 			BufferedReader socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-			
 			BufferedReader clientReader = new BufferedReader(new InputStreamReader(System.in));
 
 			/**
