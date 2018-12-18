@@ -19,8 +19,14 @@ public class Server {
 
 		try {
 
+			/**
+			 * El socket del servidor es creado en el puerto 1234
+			 */
 			ServerSocket serverSocket = new ServerSocket(1234);
 
+			/**
+			 * El servidor es inicializado
+			 */
 			System.out.println("The has server initialized ...");
 
 			while (true) {
@@ -35,14 +41,29 @@ public class Server {
 
 	}
 
+	/**
+	 * Esta clase permite que un servidor cree múltiples conexiones con diferentes
+	 * clientes
+	 */
 	static class Connection extends Thread {
 
+		/**
+		 * Socket que permite la transferencia de datos entre el servidor y el cliente
+		 */
 		private Socket connectionSocket;
 
+		/**
+		 * Canal de salida usada por el socket para enviar datos
+		 */
 		private PrintWriter writerConnection;
 
+		/**
+		 * Canal de entrada usada por el socket para leer los datos enviados por el
+		 * cliente
+		 */
 		private BufferedReader readerConnection;
 
+		
 		public Connection(Socket socketConnection) {
 			this.connectionSocket = socketConnection;
 			try {

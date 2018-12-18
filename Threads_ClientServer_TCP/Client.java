@@ -44,6 +44,7 @@ public class Client {
 					writerClient.println("successful disconnection");
 				} else {
 					writerSocket.println(comando);
+
 					writerClient.println(readerSocket.readLine());
 				}
 
