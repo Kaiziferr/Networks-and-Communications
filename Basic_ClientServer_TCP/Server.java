@@ -9,7 +9,14 @@ import java.net.Socket;
 
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * 
+ * @Descripción: El socket del servidor se ejecuta en el servidor y escucha 
+ * las próximas conexiones TCP. El socket del servidor escucha en el puerto 1234
+ * Cuando un cliente en un host remoto intenta conectarse a ese puerto, el servidor 
+ * se despierta, negocia la conexión entre el cliente y el servidor y devuelve un 
+ * objeto Socket normal que representa el socket entre los dos hosts. 
+ * Una vez que un ServerSocket ha configurado la conexión, el servidor utiliza un objeto 
+ * Socket normal para enviar datos al cliente. Este programa consiste en que un cliente
+ * envia su nombre, para que el servidor lo salude. 
  * @Autor: Steven Bernal Tovar (Kaiziferr)
  *         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
@@ -18,68 +25,64 @@ public class Server {
 	public static void main(String[] args) {
 
 		try {
-
+			
 			/**
-			 * server socket runs on the server and listens for in coming TCP connections.
-			 * Each server socket listens on a particular port on the server machine. When a
-			 * client on a remote host attempts to connect to that port, the server wakes
-			 * up, negotiates the connection between the client and the server, and returns
-			 * a regular Socket object representing the socket between the two hosts. Once a
-			 * ServerSocket has set up the connection, the server uses a regular Socket
-			 * object to send data to the client
-			 */
-
-			/**
-			 * A new ServerSocket is created on a particular port using a ServerSocket()
-			 * con‐ structor.
+			 * Se crea un nuevo ServerSocket en el puerto 1234 
 			 */
 			ServerSocket serverSocket = new ServerSocket(1234);
-
+                        
+			/**
+			 * Mensaje que indica que el servidor se esta iniciando.
+			 */
 			System.out.println("The has server initialized ...");
 
 			/**
-			 * The ServerSocket listens for incoming connection attempts on that port using
-			 * its accept() method. accept() blocks until a client attempts to make a
-			 * connection, at which point accept() returns a Socket object connecting the
-			 * client and the server.
+			 * El ServerSocket escucha los intentos de conexión entrantes en el puerto 1234
+			 * utilizando el método accept(). Este metodo accept() bloquea hasta que un cliente 
+			 * intenta establecer una conexión al servidor. Cuando el servidor acepte la peticion,
+			 * retornara un objet Socket que permitira la conneccion entre el cliente y el servidor. 
 			 */
 			Socket connectionSocket = serverSocket.accept();
 
 			/**
-			 * Get input streams that communicate with the client.
+			 * Se inicializa el flujo de entrada por el cual se recibe informacion del cliente.
 			 */
 			BufferedReader connectionReader = new BufferedReader(
 					new InputStreamReader(connectionSocket.getInputStream()));
 
 			/**
-			 * Get output streams that communicate with the client.
+			 * Se inicializa el flujo de salida por el cual se envia información al cliente
 			 */
 			PrintWriter connectionWriter = new PrintWriter(connectionSocket.getOutputStream(), true);
 
 			/**
-			 * Data is transmitted
+			 * Datos enviados
 			 */
 			connectionWriter.println("Enter your name:");
 
+			/**
+			 * connectionReader.readLine() lee el nombre enviado por el cliente
+			 * connectionWriter.println envia un saludo al cliente
+			 */
 			connectionWriter.println("good morning " + connectionReader.readLine());
 
 			/**
-			 * Input streams close the connection
+			 * Cierra canal salida
 			 */
 			connectionWriter.close();
 
 			/**
-			 * Output streams close the connection
+			 * Cierra canal de entrada
 			 */
 			connectionReader.close();
 
 			/**
-			 * Soket close the connection
+			 * Cieera el Socket que permitia la conexion entre el servidor y el cliente
 			 */
 			connectionSocket.close();
 
 			/**
-			 * Output streams close the connection
+			 * El servidor cierra sus operaciones, ya no estara en modo escucha.
 			 */
 			serverSocket.close();
 
