@@ -19,7 +19,9 @@ public class Client {
 		try {
 
 			/**
-			 * The socket attempts to connect to the remote host.
+			 * El socket intenta conectarse al host remoto.
+			 * El InetAddress.getLocalHost() es donde esta alojado el servidor, 
+			 * en este proyecto se encuentra en el local host, en el puerto 1234
 			 */
 			Socket clientSocket = new Socket(InetAddress.getLocalHost(), 1234);
 
