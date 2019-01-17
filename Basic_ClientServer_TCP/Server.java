@@ -70,7 +70,7 @@ public class Server {
 			 * connectionWriter.println envia un saludo al cliente.
 			 */
 			connectionWriter.println("good morning " + connectionReader.readLine());
-
+ 
 			/**
 			 * Cierra canal salida.
 			 */
