@@ -34,7 +34,7 @@ public class AudioUDPServer {
 	/**
 	 * Datagrama de servidor, por el cual enviara información
 	 */
-	private DatagramSocket socketDatagrama;
+	private DatagramSocket socketDatagramaServer;
 
 	public AudioUDPServer() {
 		setupAudio();
@@ -103,11 +103,10 @@ public class AudioUDPServer {
 	/**
 	 * El método broadcastAudio crea los paquetes UDP. Se crea un socket utilizando
 	 * el puerto 8000 y se crea una instancia de InetAddress para la máquina actual.
-	 * 
 	 * Se introduce un bucle infinito en el que el método de lectura llena el array
 	 * audioBuffer y devuelve el número de bytes leídos. Para recuentos superiores a
 	 * 0, se crea un nuevo paquete utilizando el búfer y se envía al cliente que
-	 * está escuchando en el puerto 9786
+	 * está escuchando en el puerto 9786.
 	 * 
 	 * La TargetDataLineinterfaz proporciona un método para leer los datos
 	 * capturados desde el búfer de la línea de datos de destino.
@@ -115,13 +114,13 @@ public class AudioUDPServer {
 	 */
 	private void broadcastAudio() {
 		try {
-			socketDatagrama = new DatagramSocket(8000);
+			socketDatagramaServer = new DatagramSocket(8000);
 			InetAddress inetAddress = InetAddress.getByName("127.0.0.1");
 			while (true) {
 				int count = targetDataLine.read(AUDIO_BUFFER, 0, AUDIO_BUFFER.length);
 				if (count > 0) {
 					DatagramPacket packet = new DatagramPacket(AUDIO_BUFFER, AUDIO_BUFFER.length, inetAddress, 9786);
-					socketDatagrama.send(packet);
+					socketDatagramaServer.send(packet);
 				}
 			}
 		} catch (Exception ex) {
@@ -135,3 +134,4 @@ public class AudioUDPServer {
 	}
 
 }
+
